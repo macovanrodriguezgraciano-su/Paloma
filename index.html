@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1b1838">
+<title>Paloma · página de prueba y demostración</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f1fa; --bg2:#e9e3f7; --ink:#1b1838; --soft:#5b567c; --card:rgba(255,255,255,.62);
+  --line:rgba(27,24,56,.12); --lilac:#a99bf0; --peach:#ffb99c; --mint:#a9e6cf; --accent:#6d56e8;
+  --serif:"Fraunces",Georgia,serif; --sans:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --bg:#14122b; --bg2:#1d1a3f; --ink:#f3f0ff; --soft:#aaa4d4; --card:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.14); --accent:#b7a9ff; color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;min-height:100vh;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  overflow-x:hidden;transition:background .5s,color .5s;
+}
+/* aurora de fondo */
+.aurora{position:fixed;inset:0;z-index:-1;overflow:hidden;background:linear-gradient(180deg,var(--bg),var(--bg2))}
+.aurora i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:drift 22s ease-in-out infinite alternate}
+.aurora i:nth-child(1){width:46vmax;height:46vmax;background:var(--lilac);left:-12vmax;top:-10vmax}
+.aurora i:nth-child(2){width:38vmax;height:38vmax;background:var(--peach);right:-10vmax;top:18vh;animation-delay:-7s;opacity:.4}
+.aurora i:nth-child(3){width:34vmax;height:34vmax;background:var(--mint);left:20vw;bottom:-16vmax;animation-delay:-13s;opacity:.35}
+:root[data-theme="dark"] .aurora i{opacity:.28}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+
+.wrap{width:min(1120px,100% - 2.4rem);margin-inline:auto}
+nav{position:sticky;top:0;z-index:20;padding:.8rem 0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{font-family:var(--serif);font-weight:700;font-size:1.3rem;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:.5rem}
+.logo svg{width:26px;height:26px}
+.links{display:flex;align-items:center;gap:1.4rem;font-size:.95rem;font-weight:500}
+.links a{color:var(--soft);text-decoration:none;transition:color .2s}
+.links a:hover{color:var(--ink)}
+button{font:inherit;color:inherit;cursor:pointer}
+.icon-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;font-size:1.1rem}
+@media(max-width:640px){.links a{display:none}}
+
+/* hero */
+.hero{min-height:calc(100svh - 70px);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:2rem;padding:3rem 0}
+.hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(3.4rem,11vw,8.6rem);line-height:.92;letter-spacing:-.035em;font-variation-settings:"opsz" 144}
+.hero h1 em{font-style:italic;font-weight:300;display:block;font-size:.34em;letter-spacing:-.01em;margin-top:1.2rem;color:var(--soft);line-height:1.15}
+.hero p{max-width:34ch;margin:1.6rem 0 2rem;color:var(--soft);font-size:1.1rem}
+.cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn{border:0;padding:.9rem 1.5rem;border-radius:999px;font-weight:700;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.btn.ghost{border:1px solid var(--line);background:var(--card)}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.dove-stage{position:relative;aspect-ratio:1;display:grid;place-items:center}
+.halo{position:absolute;width:86%;aspect-ratio:1;border-radius:50%;background:conic-gradient(from 90deg,var(--lilac),var(--peach),var(--mint),var(--lilac));filter:blur(34px);opacity:.6;animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#dove{position:relative;width:78%;filter:drop-shadow(0 24px 30px rgba(60,40,140,.28));cursor:pointer;animation:float 6s ease-in-out infinite;-webkit-tap-highlight-color:transparent}
+@keyframes float{50%{transform:translateY(-14px) rotate(-2deg)}}
+#wing{transform-origin:62% 60%;animation:flap 3.2s ease-in-out infinite}
+@keyframes flap{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
+#dove.fly{animation:fly 1.6s cubic-bezier(.5,0,.3,1)}
+#dove.fly #wing{animation:flapfast .18s ease-in-out 8}
+@keyframes fly{0%{transform:none}35%{transform:translate(18%,-30%) rotate(-12deg) scale(.9)}70%{transform:translate(-8%,-10%) rotate(5deg)}100%{transform:none}}
+@keyframes flapfast{50%{transform:rotate(-24deg)}}
+@media(max-width:820px){.hero{grid-template-columns:1fr;text-align:left;min-height:auto;padding-top:2rem}.dove-stage{max-width:380px;margin:0 auto;order:-1}}
+
+/* secciones */
+section{padding:4.5rem 0}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(2rem,5vw,3.2rem);letter-spacing:-.02em;line-height:1.05;margin-bottom:.8rem}
+.lead{color:var(--soft);max-width:52ch;margin-bottom:2.4rem}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:1.5rem;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.card h3{font-family:var(--serif);font-weight:600;font-size:1.25rem;margin-bottom:.3rem}
+.card p{color:var(--soft);font-size:.95rem}
+.c4{grid-column:span 4}.c6{grid-column:span 6}.c8{grid-column:span 8}.c12{grid-column:span 12}
+@media(max-width:900px){.c4{grid-column:span 6}.c8{grid-column:span 12}}
+@media(max-width:600px){.c4,.c6{grid-column:span 12}}
+.big{font-family:var(--serif);font-size:clamp(2.2rem,6vw,3.4rem);font-weight:400;line-height:1;margin:.6rem 0;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:.2rem .7rem;border-radius:999px;background:var(--bg2);border:1px solid var(--line);font-size:.8rem;font-weight:700;margin:.15rem .15rem 0 0}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:.8rem}
+.bar b{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--lilac),var(--peach));transition:width .2s}
+
+/* playground */
+.play{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:stretch}
+@media(max-width:760px){.play{grid-template-columns:1fr}}
+input[type=text],textarea{width:100%;font:inherit;font-size:1rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:.85rem 1rem;outline:0;transition:border-color .2s,box-shadow .2s}
+input:focus-visible,textarea:focus-visible{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+textarea{resize:vertical;min-height:90px}
+.greeting{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.15;min-height:3.4em}
+.swatches{display:flex;gap:.6rem;margin-top:1rem}
+.sw{width:38px;height:38px;border-radius:50%;border:3px solid transparent;outline:1px solid var(--line)}
+.sw[aria-pressed=true]{border-color:var(--ink)}
+.notes{display:grid;gap:.6rem;margin-top:1rem;max-height:260px;overflow:auto}
+.note{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:.7rem .9rem;font-size:.95rem;display:flex;justify-content:space-between;gap:.8rem}
+.note button{border:0;background:none;color:var(--soft);font-size:1.1rem}
+footer{padding:3rem 0 4rem;text-align:center;color:var(--soft);font-size:.95rem;border-top:1px solid var(--line)}
+footer b{font-family:var(--serif);font-size:1.4rem;color:var(--ink);display:block;margin-bottom:.4rem}
+.feather{position:fixed;top:-40px;z-index:50;pointer-events:none;font-size:1.6rem;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r));opacity:.2}}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Inicio">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15c3 0 5-2 6-5 1-3 4-5 8-4 0 3-1 5-3 6l4 3c-3 2-6 2-9 1-2 2-4 3-6 3z"/><circle cx="16" cy="8.5" r=".6" fill="currentColor"/></svg>
+      Paloma
+    </a>
+    <div class="links">
+      <a href="#dispositivo">Tu pantalla</a>
+      <a href="#jugar">Probar</a>
+      <a href="#notas">Notas</a>
+      <button class="icon-btn" id="theme" aria-label="Cambiar tema">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<main id="top" class="wrap">
+  <header class="hero">
+    <div>
+      <h1>Paloma<em>esto es una página de prueba y demostración :)</em></h1>
+      <p>Un lugar tranquilo para ver cómo se adapta todo a tu compu y a tu iPhone. Toca la paloma.</p>
+      <div class="cta">
+        <a class="btn primary" href="#jugar">Probar cosas</a>
+        <button class="btn ghost" id="feathers">Lluvia de plumas</button>
+      </div>
+    </div>
+    <div class="dove-stage">
+      <div class="halo"></div>
+      <svg id="dove" viewBox="0 0 400 320" role="img" aria-label="Una paloma blanca. Tócala para que vuele">
+        <defs>
+          <linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9d2f5"/></linearGradient>
+          <linearGradient id="wg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#c9bff0"/></linearGradient>
+        </defs>
+        <path d="M40 210c52 4 92-22 114-70 22-48 70-72 132-58-4 48-24 80-60 96l66 52c-52 36-110 40-158 20-30 34-66 48-94 36z" fill="url(#body)" stroke="#8d7fd8" stroke-width="2" stroke-linejoin="round"/>
+        <g id="wing"><path d="M150 150c-10-60 20-118 96-134 4 36-8 66-30 92 24-6 44-6 62 2-22 40-76 62-128 40z" fill="url(#wg)" stroke="#8d7fd8" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M190 128c20-8 40-30 54-56M178 148c30-6 56-24 78-50" stroke="#a99bf0" stroke-width="2" fill="none" stroke-linecap="round"/></g>
+        <path d="M312 96l36 10-34 14z" fill="#ffb99c" stroke="#e58b6a" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="300" cy="100" r="5" fill="#1b1838"/>
+        <path d="M110 232c-10 22-26 34-44 40M130 236c-6 20-16 32-30 42" stroke="#8d7fd8" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </header>
+
+  <section id="dispositivo">
+    <h2>Esto es lo que ve tu pantalla</h2>
+    <p class="lead">Todo se mide en vivo. Gira tu iPhone o cambia el tamaño de la ventana en la compu y mira cómo reacciona.</p>
+    <div class="grid">
+      <div class="card c4"><h3>Ventana</h3><div class="big" id="size">—</div><p id="layout">—</p><div class="bar"><b id="sizebar"></b></div></div>
+      <div class="card c4"><h3>Dispositivo</h3><div class="big" id="device">—</div><p id="touch">—</p></div>
+      <div class="card c4"><h3>Hora</h3><div class="big" id="clock">—</div><p id="date">—</p></div>
+      <div class="card c8"><h3>Qué incluye esta página</h3><p>Todo en un solo archivo, sin instalar nada.</p>
+        <div style="margin-top:.7rem"><span class="pill">Diseño adaptable</span><span class="pill">Modo claro y oscuro</span><span class="pill">Safe area de iPhone</span><span class="pill">Animaciones SVG</span><span class="pill">Guarda datos en tu navegador</span><span class="pill">Respeta "reducir movimiento"</span></div></div>
+      <div class="card c4"><h3>Tema</h3><p id="themeinfo">Sigue el de tu sistema.</p><div class="swatches" id="accents"></div></div>
+    </div>
+  </section>
+
+  <section id="jugar">
+    <h2>Pruébame</h2>
+    <p class="lead">Escribe un nombre y mira cómo cambia el saludo. El color que elijas se queda guardado.</p>
+    <div class="play">
+      <div class="card">
+        <h3>Tu nombre</h3>
+        <label for="name" style="display:block;margin:.5rem 0;color:var(--soft);font-size:.9rem">Escribe aquí</label>
+        <input type="text" id="name" placeholder="Paloma" autocomplete="off" autocapitalize="words">
+        <div class="swatches" id="swatches" role="group" aria-label="Color de acento"></div>
+      </div>
+      <div class="card"><h3>Vista previa</h3><p class="greeting" id="greet"></p></div>
+    </div>
+  </section>
+
+  <section id="notas">
+    <h2>Mini muro de notas</h2>
+    <p class="lead">Escribe algo y presiona agregar. Se guarda solo en este navegador.</p>
+    <div class="card">
+      <textarea id="note" placeholder="Hola, Paloma…" aria-label="Nueva nota"></textarea>
+      <div style="margin-top:.8rem"><button class="btn primary" id="add">Agregar nota</button></div>
+      <div class="notes" id="notes" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><b>Paloma</b>Página de prueba y demostración, hecha con cariño :)</div></footer>
+
+<script>
+const $=s=>document.querySelector(s), root=document.documentElement;
+const store={get(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* tema */
+const media=matchMedia('(prefers-color-scheme: dark)');
+function setTheme(t){root.dataset.theme=t;$('#theme').textContent=t==='dark'?'☀️':'🌙';document.querySelector('meta[name=theme-color]').content=t==='dark'?'#14122b':'#f4f1fa';$('#themeinfo').textContent=store.get('theme',null)?'Elegido por ti.':'Sigue el de tu sistema.'}
+setTheme(store.get('theme',null)||(media.matches?'dark':'light'));
+$('#theme').onclick=()=>{const t=root.dataset.theme==='dark'?'light':'dark';store.set('theme',t);setTheme(t)};
+
+/* medidas */
+function measure(){
+  const w=innerWidth,h=innerHeight;
+  $('#size').textContent=w+' × '+h;
+  $('#layout').textContent=w<600?'Diseño de teléfono, una columna':w<900?'Diseño de tableta, dos columnas':'Diseño de escritorio, rejilla completa';
+  $('#sizebar').style.width=Math.min(100,w/1920*100)+'%';
+  const touch=matchMedia('(pointer:coarse)').matches;
+  const ua=navigator.userAgent;
+  $('#device').textContent=/iPhone/.test(ua)?'iPhone':/iPad/.test(ua)?'iPad':/Android/.test(ua)?'Android':touch?'Táctil':'Compu';
+  $('#touch').textContent=(touch?'Pantalla táctil':'Mouse y teclado')+' · '+devicePixelRatio+'x';
+}
+addEventListener('resize',measure);measure();
+function tick(){const d=new Date();$('#clock').textContent=d.toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});$('#date').textContent=d.toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'long'})}
+tick();setInterval(tick,10000);
+
+/* acentos */
+const colors={Lila:'#6d56e8',Durazno:'#e8734a',Menta:'#1f9d78',Rosa:'#d6478a'};
+function setAccent(c){root.style.setProperty('--accent',c);store.set('accent',c);document.querySelectorAll('.sw').forEach(b=>b.setAttribute('aria-pressed',b.dataset.c===c))}
+['#accents','#swatches'].forEach(sel=>{Object.entries(colors).forEach(([n,c])=>{const b=document.createElement('button');b.className='sw';b.style.background=c;b.dataset.c=c;b.title=n;b.setAttribute('aria-label',n);b.onclick=()=>setAccent(c);$(sel).append(b)})});
+setAccent(store.get('accent',colors.Lila));
+
+/* saludo */
+function greet(){const n=$('#name').value.trim()||'Paloma',h=new Date().getHours();
+  const s=h<6?'Buenas madrugadas':h<12?'Buenos días':h<19?'Buenas tardes':'Buenas noches';
+  $('#greet').textContent=s+', '+n+'. Qué bueno verte por aquí.'}
+$('#name').addEventListener('input',greet);greet();
+
+/* notas */
+let notes=store.get('notes',['Esta es una nota de ejemplo :)']);
+function render(){const box=$('#notes');box.innerHTML='';
+  notes.forEach((t,i)=>{const d=document.createElement('div');d.className='note';const s=document.createElement('span');s.textContent=t;const b=document.createElement('button');b.textContent='×';b.setAttribute('aria-label','Borrar nota');b.onclick=()=>{notes.splice(i,1);store.set('notes',notes);render()};d.append(s,b);box.append(d)})}
+$('#add').onclick=()=>{const v=$('#note').value.trim();if(!v)return;notes.unshift(v);store.set('notes',notes);$('#note').value='';render()};
+render();
+
+/* plumas y paloma */
+function rain(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  for(let i=0;i<22;i++){const f=document.createElement('span');f.className='feather';f.textContent=['🪶','🕊️','✨'][i%3];
+    f.style.left=Math.random()*100+'vw';f.style.setProperty('--dx',(Math.random()*160-80)+'px');f.style.setProperty('--r',(Math.random()*720-360)+'deg');
+    f.style.animationDuration=(3+Math.random()*3)+'s';f.style.animationDelay=Math.random()*1.2+'s';document.body.append(f);setTimeout(()=>f.remove(),7500)}}
+$('#feathers').onclick=rain;
+$('#dove').onclick=()=>{const d=$('#dove');d.classList.remove('fly');void d.getBoundingClientRect();d.classList.add('fly');rain()};
+</script>
+</body>
+</html>
